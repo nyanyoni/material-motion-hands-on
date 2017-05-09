@@ -17,16 +17,24 @@
 <resources>
 
     <style name="AppTheme.NoActionBar.Main">
+        <item name="android:windowActivityTransitions">true</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowTranslucentNavigation">true</item>
     </style>
 
     <style name="AppTheme.NoActionBar.Detail">
+        <item name="android:windowActivityTransitions">true</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowSharedElementEnterTransition">@transition/photo_transition</item>
         <item name="android:windowSharedElementExitTransition">@transition/photo_transition</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar.ContentDetail">
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowSharedElementEnterTransition">@transition/navigational_transition_share_enter</item>
+        <item name="android:windowSharedElementExitTransition">@transition/navigational_transition_share_exit</item>
     </style>
 </resources>
