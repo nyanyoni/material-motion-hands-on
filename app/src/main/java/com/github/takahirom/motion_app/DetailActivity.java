@@ -80,26 +80,26 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
 
         photoDetail = getIntent().getParcelableExtra(EXTRA_ITEM);
+
+        setContentView(R.layout.activity_detail);
+
         setupViews();
     }
 
     private void setupViews() {
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final ImageView imageView = (ImageView) findViewById(R.id.photo);
-        Glide
-                .with(this)
+        ImageView imageView = (ImageView) findViewById(R.id.photo);
+        Glide.with(this)
                 .load(photoDetail.getWebformatURL().replace("640", "340"))
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .dontAnimate()
                 .into(imageView);
 
-
-        final CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbarLayout.setTitleEnabled(false);
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view_photo_detail);

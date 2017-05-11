@@ -58,13 +58,13 @@ class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> {
     }
 
     @Override
-    public PhotoAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final View view = LayoutInflater.from(activity).inflate(R.layout.item_photo, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final PhotoAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         final PhotoItem item = photoItems.get(position);
         // For flexbox
         final float imageScale = activity.getResources().getDisplayMetrics().density / 3;

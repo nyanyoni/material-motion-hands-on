@@ -35,7 +35,7 @@ public class PixabayResponse implements Parcelable {
     @SerializedName("hits")
     @Expose
     private List<Hit> hits = null;
-    public final static Parcelable.Creator<PixabayResponse> CREATOR = new Creator<PixabayResponse>() {
+    public final static Creator<PixabayResponse> CREATOR = new Creator<PixabayResponse>() {
 
 
         @SuppressWarnings({
@@ -154,7 +154,7 @@ public class PixabayResponse implements Parcelable {
         @SerializedName("userImageURL")
         @Expose
         private String userImageURL;
-        public final static Parcelable.Creator<Hit> CREATOR = new Creator<Hit>() {
+        public final static Creator<Hit> CREATOR = new Creator<Hit>() {
 
 
             @SuppressWarnings({
