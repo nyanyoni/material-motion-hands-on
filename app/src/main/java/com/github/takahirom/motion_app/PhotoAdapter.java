@@ -16,7 +16,12 @@
 
 package com.github.takahirom.motion_app;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.Activity;
+import android.graphics.ColorMatrixColorFilter;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
@@ -27,6 +32,10 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
+import com.github.takahirom.motion_app.animation.ObservableColorMatrix;
 import com.github.takahirom.motion_app.datasource.PixabayResponse;
 import com.google.android.flexbox.FlexboxLayoutManager;
 
@@ -80,7 +89,41 @@ class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> {
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .fitCenter()
                 .override(width, height)
-                .into(holder.photoImageView);
+                .listener(new RequestListener<String, GlideDrawable>() {
+
+                    @Override
+                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target,
+                                                   boolean isFromMemoryCache, boolean isFirstResource) {
+                        // 画像の描画準備ができてからanimationを始める
+
+                        final ObservableColorMatrix cm = new ObservableColorMatrix();
+                        final ObjectAnimator saturation = ObjectAnimator.ofFloat(
+                                cm, ObservableColorMatrix.SATURATION, 0f, 1f);
+                        
+                        saturation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                            @Override
+                            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                                // animationが更新される毎に彩度を更新する
+                                holder.photoImageView.setColorFilter(new ColorMatrixColorFilter(cm));
+                            }
+                        });
+                        saturation.addListener(new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                holder.photoImageView.clearColorFilter();
+                            }
+                        });
+                        saturation.setDuration(2000L);// animation時間設定
+                        saturation.start();
+
+                        return false;
+                    }
+                }).into(holder.photoImageView);
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
