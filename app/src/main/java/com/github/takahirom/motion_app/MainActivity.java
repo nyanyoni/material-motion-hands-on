@@ -41,22 +41,23 @@ public class MainActivity extends AppCompatActivity implements Callback<PixabayR
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
+
         setupViews();
 
-
-        final PixabayService pixabayService = ((MotionApplication) getApplication()).getPixabayService();
+        PixabayService pixabayService = ((MotionApplication) getApplication()).getPixabayService();
         pixabayService.getPublicPhotos().enqueue(this);
     }
 
     private void setupViews() {
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
-        final FlexboxLayoutManager layoutManager = new FlexboxLayoutManager();
+        FlexboxLayoutManager layoutManager = new FlexboxLayoutManager();
         recyclerView.setLayoutManager(layoutManager);
         layoutManager.setFlexDirection(FlexDirection.ROW);
         layoutManager.setFlexWrap(FlexWrap.WRAP);
