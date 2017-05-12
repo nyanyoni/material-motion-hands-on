@@ -26,13 +26,24 @@ import android.widget.TextView;
 
 import com.github.takahirom.motion_app.datasource.PixabayResponse;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 class PhotoDetailAdapter extends RecyclerView.Adapter<PhotoDetailAdapter.PhotoDetailViewHolder> {
+
     private List<Item> photoDetails = new ArrayList<>();
+    private OnItemClickListener onItemClickListener;
 
     PhotoDetailAdapter() {
+    }
+
+    public void setListener(OnItemClickListener listener) {
+        onItemClickListener = listener;
+    }
+
+    interface OnItemClickListener {
+        void onItemClick(View view, Item item);
     }
 
     void setPhotoDetails(PixabayResponse.Hit photoDetail) {
@@ -50,9 +61,16 @@ class PhotoDetailAdapter extends RecyclerView.Adapter<PhotoDetailAdapter.PhotoDe
 
     @Override
     public void onBindViewHolder(PhotoDetailViewHolder holder, int position) {
-        Item item = photoDetails.get(position);
+        final Item item = photoDetails.get(position);
         holder.imageView.setImageResource(item.imageRes);
         holder.textView.setText(item.text);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClickListener.onItemClick(v, item);
+            }
+        });
     }
 
     @Override
@@ -60,7 +78,8 @@ class PhotoDetailAdapter extends RecyclerView.Adapter<PhotoDetailAdapter.PhotoDe
         return photoDetails.size();
     }
 
-    private static class Item {
+    // HACK:ちゃんとクラス化する
+    public static class Item implements Serializable {
         @DrawableRes
         final int imageRes;
         final String text;

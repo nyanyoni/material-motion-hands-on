@@ -19,4 +19,9 @@
     <declare-styleable name="ForegroundView">
         <attr name="android:foreground"/>
     </declare-styleable>
+
+    <declare-styleable name="LiftOff">
+        <attr name="initialElevation" format="dimension" />
+        <attr name="finalElevation" format="dimension" />
+    </declare-styleable>
 </resources>

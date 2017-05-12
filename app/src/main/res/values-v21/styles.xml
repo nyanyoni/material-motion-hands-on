@@ -28,6 +28,11 @@
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowSharedElementEnterTransition">@transition/photo_transition</item>
         <item name="android:windowSharedElementExitTransition">@transition/photo_transition</item>
+    </style>
 
+    <style name="AppTheme.NoActionBar.ContentDetail">
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowSharedElementEnterTransition">@transition/navigational_transition</item>
+        <item name="android:windowSharedElementExitTransition">@transition/navigational_transition</item>
     </style>
 </resources>
